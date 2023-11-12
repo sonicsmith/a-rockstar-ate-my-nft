@@ -1,0 +1,7 @@
+{
+  "name": "chain",
+  "dependencies": {
+    "@chainlink/contracts": "^0.8.0",
+    "hardhat": "2.19"
+  }
+}

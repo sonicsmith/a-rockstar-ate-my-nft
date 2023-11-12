@@ -12,6 +12,6 @@
     "tsconfig": "workspace:*",
     "turbo": "latest"
   },
-  "packageManager": "pnpm@8.6.10",
-  "name": "constellation"
+  "packageManager": "pnpm@8.10.2",
+  "name": "a-rockstar-ate-my-nft"
 }
