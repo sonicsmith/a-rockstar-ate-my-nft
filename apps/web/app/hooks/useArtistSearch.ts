@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useSpotifyToken } from "./useSpotifyToken";
 import { useEffect, useMemo, useState } from "react";
+import { Artist } from "../types";
 
 const getArtistQuery = ({ query, token }: { query: string; token: string }) => {
   if (token && query) {
@@ -15,8 +16,10 @@ const getArtistQuery = ({ query, token }: { query: string; token: string }) => {
   }
 };
 
-export const useArtistSearch = (query: string): string => {
-  const [lastSuggestedArtist, setLastSuggestedArtist] = useState("");
+export const useArtistSearch = (query: string) => {
+  const [lastSuggestedArtist, setLastSuggestedArtist] = useState<Artist | null>(
+    null,
+  );
   const [newQuery, setNewQuery] = useState("");
 
   const token = useSpotifyToken();
@@ -24,7 +27,8 @@ export const useArtistSearch = (query: string): string => {
   // Only update new query if it's different
   // from the current suggested artist
   useEffect(() => {
-    const suggestArtistBit = lastSuggestedArtist.slice(0, query.length);
+    const lastArtistName = lastSuggestedArtist?.name ?? "";
+    const suggestArtistBit = lastArtistName.slice(0, query.length);
     if (query !== suggestArtistBit) {
       setNewQuery(query);
     }
@@ -39,9 +43,14 @@ export const useArtistSearch = (query: string): string => {
   useEffect(() => {
     if (data?.artists?.items) {
       const firstArtist = data?.artists?.items[0];
-      setLastSuggestedArtist(firstArtist?.name || "");
+      if (firstArtist) {
+        const { name, id, images } = firstArtist;
+        setLastSuggestedArtist({ name, id, imageUrl: images[2].url });
+      } else {
+        setLastSuggestedArtist(null);
+      }
     }
   }, [data]);
 
-  return lastSuggestedArtist;
+  return query ? lastSuggestedArtist : null;
 };

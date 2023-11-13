@@ -1,7 +1,7 @@
 interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
-  variant?: "primary" | "success";
+  variant?: "primary" | "success" | "error";
   disabled?: boolean;
 }
 
@@ -12,7 +12,9 @@ export const Button = (props: ButtonProps) => {
   }
   return (
     <div className="h-fit">
-      <button className={`nes-btn ${variant}`}>{props.children}</button>
+      <button className={`nes-btn ${variant}`} onClick={props.onClick}>
+        {props.children}
+      </button>
     </div>
   );
 };

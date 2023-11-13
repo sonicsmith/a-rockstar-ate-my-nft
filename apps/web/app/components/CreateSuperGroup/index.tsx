@@ -1,34 +1,44 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Container, Input } from "ui";
-import { useArtistSearch } from "../../hooks/useArtistSearch";
+import { Button, Container } from "ui";
+import { Artist } from "../../types";
+import { ArtistSearch } from "./ArtistSearch";
+import { ArtistDisplay } from "./ArtistsDisplay";
 
 export const CreateSuperGroup = () => {
-  const [query, setQuery] = useState("");
-  const [artists, setArtists] = useState([]);
+  const [artists, setArtists] = useState<Artist[]>([]);
 
-  const artistName = useArtistSearch(query);
+  const addArtist = (artist: Artist) => {
+    console.log("addArtist", artist);
+    if (artist) {
+      setArtists([...artists, artist]);
+    }
+  };
 
-  console.log(artistName);
+  const removeArtistAtIndex = (index: number) => {
+    setArtists(artists.filter((_, i) => i !== index));
+  };
 
   return (
     <Container label={"Create Super Group"}>
-      <div className="flex gap-2">
-        <div className="w-full">
-          <Input
-            value={query}
-            setValue={setQuery}
-            label="Search first artist:"
-            suggestion={artistName}
-          />
-        </div>
-        <div className="flex flex-col justify-end">
-          <Button variant={"success"} onClick={() => {}} disabled={!artistName}>
-            Add
+      {artists.length ? (
+        <ArtistDisplay artists={artists} removeAtIndex={removeArtistAtIndex} />
+      ) : null}
+      {artists.length < 2 ? (
+        <ArtistSearch
+          label={`Search ${artists.length ? "second" : "first"} artist:`}
+          addArtist={addArtist}
+        />
+      ) : (
+        <div className="flex justify-center">
+          <Button variant="success">
+            <div className="flex gap-2">
+              <div className="my-auto">Create Super Group</div>
+            </div>
           </Button>
         </div>
-      </div>
+      )}
     </Container>
   );
 };

@@ -52,7 +52,7 @@ contract ARockstarAteMyNFT is FunctionsClient, ConfirmedOwner {
         "const { data } = apiResponse;"
         "return Functions.encodeString(data.name);";
 
-    //Callback gas limit
+    // Callback gas limit
     uint32 gasLimit = 300000;
 
     // donID - Hardcoded for Mumbai
