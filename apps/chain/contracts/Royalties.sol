@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity 0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Royalties is ERC20, Ownable {
+    address private _gameContract;
+
     modifier onlyGameContract() {
         require(msg.sender == _gameContract);
         _;
@@ -12,7 +14,7 @@ contract Royalties is ERC20, Ownable {
 
     constructor(
         address gameContract
-    ) ERC20("Royalties", "ROYAL") Ownable(msg.sender) {
+    ) ERC20("Royalties", "RLTS") Ownable(msg.sender) {
         _gameContract = gameContract;
     }
 

@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.19;
+pragma solidity 0.8.20;
 
 import {FunctionsClient} from "@chainlink/contracts/src/v0.8/functions/dev/v1_0_0/FunctionsClient.sol";
 import {ConfirmedOwner} from "@chainlink/contracts/src/v0.8/shared/access/ConfirmedOwner.sol";
 import {FunctionsRequest} from "@chainlink/contracts/src/v0.8/functions/dev/v1_0_0/libraries/FunctionsRequest.sol";
+import {ISuperGroups} from "./interfaces/ISuperGroups.sol";
 
 /**
  * Request testnet LINK and ETH here: https://faucets.chain.link/
@@ -22,6 +23,18 @@ contract ARockstarAteMyNFT is FunctionsClient, ConfirmedOwner {
     bytes32 public s_lastRequestId;
     bytes public s_lastResponse;
     bytes public s_lastError;
+
+    struct CreateSupergroupRequest {
+        address sender;
+        string[] artistIds;
+    }
+
+    struct DisbandSupergroupRequest {
+        uint256 tokenId;
+    }
+
+    mapping(bytes32 => CreateSupergroupRequest) _createSupergroupRequests;
+    mapping(bytes32 => DisbandSupergroupRequest) _disbandSupergroupRequests;
 
     // Custom error type
     error UnexpectedRequestID(bytes32 requestId);
@@ -63,10 +76,18 @@ contract ARockstarAteMyNFT is FunctionsClient, ConfirmedOwner {
     // State variable to store the returned character information
     string public character;
 
+    ISuperGroups private _superGroupsContract;
+
     /**
      * @notice Initializes the contract with the Chainlink router address and sets the contract owner
      */
     constructor() FunctionsClient(router) ConfirmedOwner(msg.sender) {}
+
+    function setSuperGroupsContract(
+        address superGroupsAddress
+    ) external onlyOwner {
+        _superGroupsContract = ISuperGroups(superGroupsAddress);
+    }
 
     /**
      * @notice Sends an HTTP request for character information
@@ -77,10 +98,12 @@ contract ARockstarAteMyNFT is FunctionsClient, ConfirmedOwner {
     function sendRequest(
         uint64 subscriptionId,
         string[] calldata args
-    ) external onlyOwner returns (bytes32 requestId) {
+    ) internal returns (bytes32 requestId) {
         FunctionsRequest.Request memory req;
-        req.initializeRequestForInlineJavaScript(source); // Initialize the request with JS code
-        if (args.length > 0) req.setArgs(args); // Set the arguments for the request
+        // Initialize the request with JS code
+        req.initializeRequestForInlineJavaScript(source);
+        // Set the arguments for the request
+        req.setArgs(args);
 
         // Send the request and store the request ID
         s_lastRequestId = _sendRequest(
@@ -105,7 +128,8 @@ contract ARockstarAteMyNFT is FunctionsClient, ConfirmedOwner {
         bytes memory err
     ) internal override {
         if (s_lastRequestId != requestId) {
-            revert UnexpectedRequestID(requestId); // Check if request IDs match
+            // Revert if request IDs don't match
+            revert UnexpectedRequestID(requestId);
         }
         // Update the contract's state variables with the response and any errors
         s_lastResponse = response;
@@ -114,5 +138,39 @@ contract ARockstarAteMyNFT is FunctionsClient, ConfirmedOwner {
 
         // Emit an event to log the response
         emit Response(requestId, character, s_lastResponse, s_lastError);
+
+        uint256 numberOfFollowers = 0;
+
+        // If this is a create supergroup request
+        if (_createSupergroupRequests[requestId].sender != address(0)) {
+            // Mint a token with the requested data
+            _superGroupsContract.safeMint(
+                _createSupergroupRequests[requestId].sender,
+                _createSupergroupRequests[requestId].artistIds,
+                numberOfFollowers
+            );
+        }
+
+        // If this is a disband supergroup request
+        if (_disbandSupergroupRequests[requestId].tokenId != 0) {
+            // Burn the token
+            _superGroupsContract.burn(
+                _disbandSupergroupRequests[requestId].tokenId
+            );
+            // Distribute royalties
+        }
+    }
+
+    /*
+
+        */
+    function createSupergroup(string[] calldata artistIds) external payable {
+        // require payment
+        // make request to get spotify score
+        uint64 subscriptionId = 1;
+        bytes32 requestId = sendRequest(subscriptionId, artistIds);
+        _createSupergroupRequests[requestId].sender = msg.sender;
+        string[] memory artistIds_ = new string[](artistIds.length);
+        _createSupergroupRequests[requestId].artistIds = artistIds_;
     }
 }
