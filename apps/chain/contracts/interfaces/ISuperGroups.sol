@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-interface ISuperGroups {
-    struct SuperGroupInfo {
+interface ISupergroups {
+    struct SupergroupInfo {
         string[] artistIds;
         uint256 numberOfFollowers;
     }
@@ -15,7 +15,7 @@ interface ISuperGroups {
 
     function burn(uint256 tokenId) external;
 
-    function getSuperGroupInfo(
+    function getSupergroupInfo(
         uint256 tokenId
-    ) external view returns (SuperGroupInfo memory);
+    ) external view returns (SupergroupInfo memory);
 }

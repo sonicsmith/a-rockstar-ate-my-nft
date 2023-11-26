@@ -1,7 +1,7 @@
 interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
-  variant?: "primary" | "success" | "error";
+  variant?: "primary" | "success" | "error" | "warning";
   disabled?: boolean;
 }
 

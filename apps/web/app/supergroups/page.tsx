@@ -1,4 +1,5 @@
-import { CreateSuperGroup } from "../components/CreateSuperGroup";
+import { CreateSupergroup } from "../components/CreateSupergroup";
+import { SupergroupList } from "../components/SupergroupList";
 
 export default function Page({
   searchParams,
@@ -6,8 +7,8 @@ export default function Page({
   searchParams: { action: string | string[] | undefined };
 }) {
   if (searchParams?.action === "create") {
-    return <CreateSuperGroup />;
+    return <CreateSupergroup />;
   }
 
-  return <div>All Super groups</div>;
+  return <SupergroupList />;
 }

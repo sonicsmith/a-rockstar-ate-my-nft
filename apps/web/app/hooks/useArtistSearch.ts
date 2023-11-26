@@ -4,7 +4,13 @@ import { useSpotifyToken } from "./useSpotifyToken";
 import { useEffect, useMemo, useState } from "react";
 import { Artist } from "../types";
 
-const getArtistQuery = ({ query, token }: { query: string; token: string }) => {
+const getArtistQuery = ({
+  query,
+  token,
+}: {
+  query: string;
+  token: string | null;
+}) => {
   if (token && query) {
     return axios
       .get(`https://api.spotify.com/v1/search?q=${query}&type=artist`, {

@@ -20,6 +20,7 @@ export const Input = ({ value, setValue, label, suggestion }: InputProps) => {
         className="nes-input"
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        autoComplete="off"
       />
       {suggestion && (
         <div
