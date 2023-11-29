@@ -4,12 +4,14 @@
   "description": "",
   "scripts": {
     "hardhat:compile": "hardhat compile",
-    "hardhat:test": "hardhat test"
+    "hardhat:test": "hardhat test",
+    "hardhat:deploy": "hardhat run scripts/deployAll.ts --network mumbai"
   },
   "devDependencies": {
     "@chainlink/contracts": "^0.8.0",
-    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "@nomicfoundation/hardhat-toolbox-viem": "^2.0.0",
     "@openzeppelin/contracts": "^5.0.0",
-    "hardhat": "^2.19.0"
+    "dotenv": "^16.3.1",
+    "hardhat": "^2.19.1"
   }
 }

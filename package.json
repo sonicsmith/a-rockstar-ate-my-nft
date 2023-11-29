@@ -6,7 +6,8 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "hardhat:compile": "turbo run hardhat:compile --scope=chain",
-    "hardhat:test": "turbo run hardhat:test --scope=chain"
+    "hardhat:test": "turbo run hardhat:test --scope=chain",
+    "hardhat:deploy": "turbo run hardhat:deploy --scope=chain"
   },
   "devDependencies": {
     "eslint": "^8.48.0",

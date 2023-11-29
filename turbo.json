@@ -12,6 +12,7 @@
       "persistent": true
     },
     "hardhat:compile": {},
-    "hardhat:test": {}
+    "hardhat:test": {},
+    "hardhat:deploy": {}
   }
 }

@@ -15,8 +15,6 @@ export const ArtistDisplay = ({
     <Container rounded>
       <div className="flex">
         {artists.map((artist, index) => {
-          if (index === 0) {
-          }
           return (
             <div key={artist.id} className="w-48">
               <div className="relative">

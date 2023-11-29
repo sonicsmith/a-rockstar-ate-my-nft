@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./interfaces/ISupergroups.sol";
 
 contract Supergroups is ISupergroups, ERC721, Ownable {
-    uint256 private _nextTokenId;
+    uint256 public _nextTokenId = 1;
     address private _gameContract;
 
     mapping(uint256 => SupergroupInfo) private _supergroupInfo;

@@ -6,7 +6,6 @@ import { Press_Start_2P } from "next/font/google";
 import { Providers } from "./providers";
 import { Header } from "./components/Header";
 import { Dialog } from "./components/Dialog";
-import { useAppStore } from "./store/useAppStore";
 
 const font = Press_Start_2P({ weight: ["400"], subsets: ["latin"] });
 

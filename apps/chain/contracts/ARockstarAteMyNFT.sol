@@ -8,6 +8,7 @@ import {ISupergroups} from "./interfaces/ISupergroups.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {IRoyalties} from "./interfaces/IRoyalties.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 import "./Constants.sol";
 
@@ -97,9 +98,9 @@ contract ARockstarAteMyNFT is FunctionsClient, ConfirmedOwner {
             if (royalties > 0) {
                 // Burn the token
                 address owner = IERC721(_supergroupsAddress).ownerOf(tokenId);
-                ISupergroups(_supergroupsAddress).burn(tokenId);
                 IRoyalties(_royaltiesAddress).mint(owner, uint256(royalties));
             }
+            ISupergroups(_supergroupsAddress).burn(tokenId);
         } else {
             revert UnexpectedRequestID(requestId);
         }
@@ -152,6 +153,27 @@ contract ARockstarAteMyNFT is FunctionsClient, ConfirmedOwner {
         _createSupergroupRequests[requestId].artistIds = artistIds;
     }
 
+    /**
+     * @notice Function to sell Supergroup
+     * @param accessToken Token for spotify call
+     * @param tokenId Token ID of the supergroup to sell
+     */
+    function sellSupergroup(
+        string calldata accessToken,
+        uint256 tokenId
+    ) external payable {
+        // Sender must own token
+        address owner = IERC721(_supergroupsAddress).ownerOf(tokenId);
+        require(owner == msg.sender, "Sender must own token");
+
+        // make request to get spotify score
+        string[] memory args = new string[](2);
+        args[0] = accessToken;
+        args[1] = Strings.toString(tokenId);
+        bytes32 requestId = sendRequest(args);
+        _disbandSupergroupRequests[requestId].tokenId = tokenId;
+    }
+
     // public functions
     // internal functions
 
@@ -162,7 +184,7 @@ contract ARockstarAteMyNFT is FunctionsClient, ConfirmedOwner {
      * 1, 2 - artistIds: An array of IDs for each artist in the supergroup
      */
     function sendRequest(
-        string[] calldata args
+        string[] memory args
     ) internal returns (bytes32 requestId) {
         FunctionsRequest.Request memory req;
         // Initialize the request with JS code
