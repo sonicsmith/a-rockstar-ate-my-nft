@@ -2,3 +2,10 @@
 
 Chainlink Hackathon 2023
 
+Monorepo storing Hardhat and NextJS.
+
+Installation:
+
+```
+pnpm i
+```

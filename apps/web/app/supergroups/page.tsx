@@ -1,7 +1,8 @@
+import { getSupergroups } from "../../api/supergroups";
 import { CreateSupergroup } from "../components/CreateSupergroup";
 import { SupergroupList } from "../components/SupergroupList";
 
-export default function Page({
+export default async function Page({
   searchParams,
 }: {
   searchParams: {
@@ -9,13 +10,16 @@ export default function Page({
     filter: string | string[] | undefined;
   };
 }) {
-  if (searchParams?.action === "create") {
+  const supergroups = await getSupergroups();
+
+  if (searchParams.action === "create") {
     return <CreateSupergroup />;
   }
 
-  if (searchParams?.filter === "owned") {
-    return <SupergroupList filter={"owned"} />;
-  }
-
-  return <SupergroupList />;
+  return (
+    <SupergroupList
+      supergroups={supergroups}
+      showOwned={searchParams.filter === "owned"}
+    />
+  );
 }
