@@ -11,8 +11,14 @@ export const Button = (props: ButtonProps) => {
     variant = "is-disabled";
   }
   return (
-    <div className="h-fit">
-      <button className={`nes-btn ${variant}`} onClick={props.onClick}>
+    <div>
+      <button
+        className={`nes-btn ${variant}`}
+        onClick={props.onClick}
+        style={{
+          minWidth: "128px",
+        }}
+      >
         {props.children}
       </button>
     </div>

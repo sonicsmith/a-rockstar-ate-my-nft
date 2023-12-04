@@ -19,6 +19,17 @@ export const useSupergroupInfo = (supergroupId: string) => {
     args: [supergroupId],
   });
 
+  const {
+    data: owner,
+    isError: isErrorOwner,
+    isLoading: isLoadingOwner,
+  } = useContractRead({
+    address: SUPERGROUPS_CONTRACT_ADDRESS,
+    abi: SUPERGROUPS_CONTRACT_ABI,
+    functionName: "ownerOf",
+    args: [supergroupId],
+  });
+
   const supergroupInfo = data as SupergroupInfo | null;
   const artistId1 = supergroupInfo?.artistIds[0];
   const artistId2 = supergroupInfo?.artistIds[1];
@@ -29,6 +40,7 @@ export const useSupergroupInfo = (supergroupId: string) => {
 
   if (!artist1 || !artist2) {
     return {
+      owner: "",
       artists: [],
       numberOfFollowersStart: 0,
       numberOfFollowersCurrent: 0,
@@ -36,6 +48,7 @@ export const useSupergroupInfo = (supergroupId: string) => {
   }
 
   return {
+    owner: owner as string,
     artists: [artist1, artist2],
     numberOfFollowersStart: numberOfFollowers,
     numberOfFollowersCurrent: artist1.totalFollowers + artist2.totalFollowers,

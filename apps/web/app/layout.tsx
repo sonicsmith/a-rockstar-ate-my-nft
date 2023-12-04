@@ -6,6 +6,7 @@ import { Press_Start_2P } from "next/font/google";
 import { Providers } from "./providers";
 import { Header } from "./components/Header";
 import { Dialog } from "./components/Dialog";
+import { MainView } from "./components/MainView";
 
 const font = Press_Start_2P({ weight: ["400"], subsets: ["latin"] });
 
@@ -26,7 +27,7 @@ export default function RootLayout({
           <Dialog />
           <Header />
           <div className="container mx-auto p-8 flex justify-center">
-            {children}
+            <MainView>{children}</MainView>
           </div>
         </Providers>
       </body>

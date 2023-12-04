@@ -165,11 +165,15 @@ contract ARockstarAteMyNFT is FunctionsClient, ConfirmedOwner {
         // Sender must own token
         address owner = IERC721(_supergroupsAddress).ownerOf(tokenId);
         require(owner == msg.sender, "Sender must own token");
-
-        // make request to get spotify score
-        string[] memory args = new string[](2);
+        string[] memory args = new string[](3);
         args[0] = accessToken;
-        args[1] = Strings.toString(tokenId);
+        args[1] = ISupergroups(_supergroupsAddress)
+            .getSupergroupInfo(tokenId)
+            .artistIds[0];
+        args[2] = ISupergroups(_supergroupsAddress)
+            .getSupergroupInfo(tokenId)
+            .artistIds[1];
+        // make request to get spotify score
         bytes32 requestId = sendRequest(args);
         _disbandSupergroupRequests[requestId].tokenId = tokenId;
     }

@@ -4,3 +4,8 @@ export interface Artist {
   imageUrl: string;
   totalFollowers: number;
 }
+
+export interface SupergroupsNftItem {
+  tokenId: string;
+  ownerOf: string;
+}

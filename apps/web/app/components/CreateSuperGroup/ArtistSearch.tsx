@@ -16,7 +16,7 @@ export const ArtistSearch = ({ addArtist, label }: ArtistSearchProps) => {
   const artist = useArtistSearch(query);
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 flex-col md:flex-row">
       <div className="w-full">
         <Input
           value={query}

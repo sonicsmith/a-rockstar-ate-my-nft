@@ -1,7 +1,11 @@
+import { useState } from "react";
+
+import { Menu } from "./components/Menu";
+
 export default function Page(): JSX.Element {
   return (
     <main>
-      <div>This is the home page</div>
+      <Menu />
     </main>
   );
 }

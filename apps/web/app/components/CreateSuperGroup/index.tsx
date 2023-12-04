@@ -19,11 +19,7 @@ export const CreateSupergroup = () => {
 
   const { setDialogMessage } = useAppStore();
 
-  console.log("data", data);
-  console.log("isSuccess", isSuccess);
-
   const addArtist = (artist: Artist) => {
-    console.log("addArtist", artist);
     if (artist) {
       setArtists([...artists, artist]);
     }
@@ -46,8 +42,7 @@ export const CreateSupergroup = () => {
       setDialogMessage(
         "Transaction processing. You should receive your NFT soon!",
       );
-      // router.push(`/supergroups/?hash=${data.hash}`);
-      router.push(`/supergroups`);
+      router.push(`/?hash=${data.hash}`);
     }
   }, [data]);
 

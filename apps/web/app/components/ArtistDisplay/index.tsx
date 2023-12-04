@@ -23,12 +23,12 @@ export const ArtistDisplay = ({
                 </div>
                 {removeAtIndex && (
                   <div className="absolute top-0 left-32">
-                    <Button
-                      variant={"error"}
+                    <button
+                      className={"nes-btn is-error"}
                       onClick={() => removeAtIndex(index)}
                     >
                       x
-                    </Button>
+                    </button>
                   </div>
                 )}
               </div>
