@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const SupergroupListItem = (props: { tokenId: string }) => {
+export function SupergroupListItem(props: { tokenId: string }) {
   return (
     <Link href={`/supergroups/${props.tokenId}`}>
       <div className="nes-badge">
@@ -8,4 +8,4 @@ export const SupergroupListItem = (props: { tokenId: string }) => {
       </div>
     </Link>
   );
-};
+}

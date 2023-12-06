@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { Button, Container } from "ui";
-import { Artist } from "../../types";
+import { useRouter } from "next/navigation";
+import type { Artist } from "../../types";
 import { ArtistDisplay } from "../ArtistDisplay";
 import { useCreateSupergroup } from "../../hooks/useCreateSupergroup";
-import { useRouter } from "next/navigation";
 import { useAppStore } from "../../store/useAppStore";
 import { ArtistSearch } from "./ArtistSearch";
 
-export const CreateSupergroup = () => {
+export function CreateSupergroup() {
   const [artists, setArtists] = useState<Artist[]>([]);
 
   const { createSupergroup, data, isLoading, isSuccess } =
@@ -48,7 +48,7 @@ export const CreateSupergroup = () => {
 
   return (
     <div>
-      <Container label={"Create Supergroup"}>
+      <Container label="Create Supergroup">
         {artists.length ? (
           <div className="mb-4">
             <ArtistDisplay
@@ -59,14 +59,14 @@ export const CreateSupergroup = () => {
         ) : null}
         {artists.length < 2 ? (
           <ArtistSearch
-            label={`Search ${artists.length ? "second" : "first"} artist:`}
             addArtist={addArtist}
+            label={`Search ${artists.length ? "second" : "first"} artist:`}
           />
         ) : (
           <div className="flex justify-center">
             <Button
-              variant={isLoading ? "warning" : "success"}
               onClick={create}
+              variant={isLoading ? "warning" : "success"}
             >
               <div className="flex gap-2">
                 {isLoading ? (
@@ -81,4 +81,4 @@ export const CreateSupergroup = () => {
       </Container>
     </div>
   );
-};
+}

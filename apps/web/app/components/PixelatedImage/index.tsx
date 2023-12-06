@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export const PixelatedImage = ({ imageUrl }: { imageUrl: string }) => {
+export function PixelatedImage({ imageUrl }: { imageUrl: string }) {
   const imageCanvas = useRef();
 
   useEffect(() => {
@@ -40,4 +40,4 @@ export const PixelatedImage = ({ imageUrl }: { imageUrl: string }) => {
       />
     </div>
   );
-};
+}

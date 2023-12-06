@@ -1,6 +1,6 @@
-import mainArtifacts from "./../app/abis/ARockstarAteMyNFT.json";
-import supergroupsArtifacts from "./../app/abis/Supergroups.json";
-import royaltiesArtifacts from "./../app/abis/Royalties.json";
+import mainArtifacts from "./abis/ARockstarAteMyNFT.json";
+import supergroupsArtifacts from "./abis/Supergroups.json";
+import royaltiesArtifacts from "./abis/Royalties.json";
 
 export const MAIN_CONTRACT_ADDRESS: `0x${string}` =
   "0xa29d09e3907a268e3442c9a0ecca354111f34e53";

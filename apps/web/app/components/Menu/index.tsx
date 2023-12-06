@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "ui";
 
-export const Menu = () => {
+export function Menu() {
   const [checked, setChecked] = useState(1);
 
   const router = useRouter();
@@ -27,39 +27,39 @@ export const Menu = () => {
     <div className="">
       <div>Please choose an option:</div>
       <div className="py-8 flex flex-col">
-        <label onClick={() => setChecked(1)}>
+        <label onClick={() => { setChecked(1); }}>
           <input
-            type="radio"
+            checked={checked === 1}
             className="nes-radio"
             name="answer"
-            checked={checked === 1}
+            type="radio"
           />
           <span>Create supergroup</span>
         </label>
 
-        <label onClick={() => setChecked(2)}>
+        <label onClick={() => { setChecked(2); }}>
           <input
-            type="radio"
+            checked={checked === 2}
             className="nes-radio"
             name="answer"
-            checked={checked === 2}
+            type="radio"
           />
           <span>View my supergroups</span>
         </label>
 
-        <label onClick={() => setChecked(3)}>
+        <label onClick={() => { setChecked(3); }}>
           <input
-            type="radio"
+            checked={checked === 3}
             className="nes-radio"
             name="answer"
-            checked={checked === 3}
+            type="radio"
           />
           <span>View all supergroups</span>
         </label>
       </div>
-      <Button variant="primary" onClick={goToPage}>
+      <Button onClick={goToPage} variant="primary">
         {checked === 1 ? "Create" : "View"}
       </Button>
     </div>
   );
-};
+}

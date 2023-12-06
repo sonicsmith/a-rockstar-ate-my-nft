@@ -1,8 +1,8 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { useSpotifyToken } from "./useSpotifyToken";
 import { useEffect, useMemo, useState } from "react";
-import { Artist } from "../types";
+import type { Artist } from "../types";
+import { useSpotifyToken } from "./useSpotifyToken";
 
 const getArtistQuery = ({
   query,
@@ -17,9 +17,9 @@ const getArtistQuery = ({
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => res.data);
-  } else {
+  } 
     return [];
-  }
+  
 };
 
 export const useArtistSearch = (query: string) => {
@@ -50,8 +50,14 @@ export const useArtistSearch = (query: string) => {
     if (data?.artists?.items) {
       const firstArtist = data?.artists?.items[0];
       if (firstArtist) {
-        const { name, id, images } = firstArtist;
-        setLastSuggestedArtist({ name, id, imageUrl: images[2].url });
+        const { name, id, images, followers } = firstArtist;
+        const { total } = followers;
+        setLastSuggestedArtist({
+          name,
+          id,
+          imageUrl: images[2].url,
+          totalFollowers: total,
+        });
       } else {
         setLastSuggestedArtist(null);
       }

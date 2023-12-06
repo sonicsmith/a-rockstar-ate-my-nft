@@ -1,7 +1,7 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Button } from "ui";
 
-export const WalletButton = () => {
+export function WalletButton() {
   return (
     <ConnectButton.Custom>
       {({
@@ -34,4 +34,4 @@ export const WalletButton = () => {
       }}
     </ConnectButton.Custom>
   );
-};
+}

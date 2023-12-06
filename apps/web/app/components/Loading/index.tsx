@@ -1,6 +1,6 @@
 import "./styles.css";
 
-export const Loading = () => {
+export function Loading() {
   return (
     <div className="bg-blue-300 w-full h-96">
       <div className="loader">
@@ -8,4 +8,4 @@ export const Loading = () => {
       </div>
     </div>
   );
-};
+}

@@ -7,7 +7,7 @@ interface UserWalletState {
 
 const store = create<UserWalletState>()((set) => ({
   dialogMessage: "",
-  setDialogMessage: (dialogMessage: string) => set({ dialogMessage }),
+  setDialogMessage: (dialogMessage: string) => { set({ dialogMessage }); },
 }));
 
 export const useAppStore = () => useStore(store);

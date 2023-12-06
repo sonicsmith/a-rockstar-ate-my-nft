@@ -1,17 +1,17 @@
 "use client";
 
 import { Container } from "ui";
-import { SupergroupListItem } from "./SupergroupListItem";
-import { SupergroupsNftItem } from "../../types";
 import { useAccount } from "wagmi";
+import type { SupergroupsNftItem } from "../../types";
+import { SupergroupListItem } from "./SupergroupListItem";
 
-export const SupergroupList = ({
+export function SupergroupList({
   supergroups,
   showOwned,
 }: {
   supergroups: SupergroupsNftItem[];
   showOwned: boolean;
-}) => {
+}) {
   const { address } = useAccount();
 
   const filteredSupergroups = supergroups.filter((supergroup) => {
@@ -21,22 +21,21 @@ export const SupergroupList = ({
     return true;
   });
 
-  const label = (showOwned ? "My " : "") + "Supergroups";
+  const label = `${showOwned ? "My " : ""  }Supergroups`;
 
   return (
     <div>
       <Container label={`${label}:`}>
         {filteredSupergroups.length === 0 && <p>No supergroups found.</p>}
         <div className="flex flex-col">
-          {filteredSupergroups &&
-            filteredSupergroups.map((supergroup) => (
+          {filteredSupergroups ? filteredSupergroups.map((supergroup) => (
               <SupergroupListItem
-                tokenId={supergroup.tokenId}
                 key={supergroup.tokenId}
+                tokenId={supergroup.tokenId}
               />
-            ))}
+            )) : null}
         </div>
       </Container>
     </div>
   );
-};
+}

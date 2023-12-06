@@ -5,7 +5,7 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-export const Button = (props: ButtonProps) => {
+export function Button(props: ButtonProps) {
   let variant = props.variant ? `is-${props.variant}` : "is-normal";
   if (props.disabled) {
     variant = "is-disabled";
@@ -23,4 +23,4 @@ export const Button = (props: ButtonProps) => {
       </button>
     </div>
   );
-};
+}

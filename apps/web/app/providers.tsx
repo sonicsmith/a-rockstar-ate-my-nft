@@ -5,7 +5,8 @@ import {
   getDefaultWallets,
   connectorsForWallets,
 } from "@rainbow-me/rainbowkit";
-import { ReactNode, useEffect, useState } from "react";
+import type { ReactNode} from "react";
+import { useEffect, useState } from "react";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { polygon, polygonMumbai } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
@@ -41,12 +42,12 @@ const queryClient = new QueryClient();
 
 export function Providers({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  useEffect(() => { setMounted(true); }, []);
   return (
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains} appInfo={appInfo}>
+      <RainbowKitProvider appInfo={appInfo} chains={chains}>
         <QueryClientProvider client={queryClient}>
-          {mounted && children}
+          {mounted ? children : null}
         </QueryClientProvider>
       </RainbowKitProvider>
     </WagmiConfig>

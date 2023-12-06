@@ -1,14 +1,13 @@
 import { useContractRead } from "wagmi";
-
-import { useArtistInfo } from "./useArtistInfo";
 import {
   SUPERGROUPS_CONTRACT_ABI,
   SUPERGROUPS_CONTRACT_ADDRESS,
 } from "../constants";
+import { useArtistInfo } from "./useArtistInfo";
 
 interface SupergroupInfo {
   artistIds: string[];
-  numberOfFollowers: BigInt;
+  numberOfFollowers: bigint;
 }
 
 export const useSupergroupInfo = (supergroupId: string) => {

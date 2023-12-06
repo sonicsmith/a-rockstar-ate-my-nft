@@ -13,7 +13,7 @@ export const getArtistInfo = ({
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => res.data);
-  } else {
+  } 
     return [];
-  }
+  
 };

@@ -5,7 +5,7 @@ import { HomeButton } from "../HomeButton";
 import { RoyaltiesBalance } from "../RoyaltiesBalance";
 import { WalletButton } from "../WalletButton";
 
-export const Header = () => {
+export function Header() {
   const { isConnected } = useAccount();
   return (
     <nav className="bg-black w-full flex sticky top-0 text-white p-4 justify-between">
@@ -13,9 +13,9 @@ export const Header = () => {
         <HomeButton />
       </div>
       <div className="my-auto flex">
-        {isConnected && <RoyaltiesBalance />}
+        {isConnected ? <RoyaltiesBalance /> : null}
         <WalletButton />
       </div>
     </nav>
   );
-};
+}

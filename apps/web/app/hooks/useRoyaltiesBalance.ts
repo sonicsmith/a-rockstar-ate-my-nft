@@ -14,5 +14,5 @@ export const useRoyaltiesBalance = () => {
     args: [address],
   });
 
-  return data as BigInt | undefined;
+  return data as bigint | undefined;
 };

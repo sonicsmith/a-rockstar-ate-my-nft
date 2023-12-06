@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { Button, Input } from "ui";
 import { useArtistSearch } from "../../hooks/useArtistSearch";
-import { Artist } from "../../types";
+import type { Artist } from "../../types";
 
 interface ArtistSearchProps {
   addArtist: (artist: Artist) => void;
   label: string;
 }
 
-export const ArtistSearch = ({ addArtist, label }: ArtistSearchProps) => {
+export function ArtistSearch({ addArtist, label }: ArtistSearchProps) {
   const [query, setQuery] = useState("");
 
   const artist = useArtistSearch(query);
@@ -19,24 +19,24 @@ export const ArtistSearch = ({ addArtist, label }: ArtistSearchProps) => {
     <div className="flex gap-2 flex-col md:flex-row">
       <div className="w-full">
         <Input
-          value={query}
-          setValue={setQuery}
           label={label}
+          setValue={setQuery}
           suggestion={artist?.name || ""}
+          value={query}
         />
       </div>
       <div className="flex flex-col justify-end">
         <Button
-          variant={"success"}
+          disabled={!artist}
           onClick={() => {
             addArtist(artist!);
             setQuery("");
           }}
-          disabled={!artist}
+          variant="success"
         >
           Add
         </Button>
       </div>
     </div>
   );
-};
+}

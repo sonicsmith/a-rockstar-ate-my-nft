@@ -5,7 +5,7 @@ interface InputProps {
   suggestion?: string;
 }
 
-export const Input = ({ value, setValue, label, suggestion }: InputProps) => {
+export function Input({ value, setValue, label, suggestion }: InputProps) {
   const typedLength = value.length;
   let suggestedExtra = "";
   if (suggestion) {
@@ -15,15 +15,14 @@ export const Input = ({ value, setValue, label, suggestion }: InputProps) => {
     <div className="nes-field" style={{ position: "relative" }}>
       <label htmlFor="name_field">{label}</label>
       <input
-        type="text"
-        id="name_field"
-        className="nes-input"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
         autoComplete="off"
+        className="nes-input"
+        id="name_field"
+        onChange={(e) => { setValue(e.target.value); }}
+        type="text"
+        value={value}
       />
-      {suggestion && (
-        <div
+      {suggestion ? <div
           style={{
             position: "absolute",
             top: 44,
@@ -40,8 +39,7 @@ export const Input = ({ value, setValue, label, suggestion }: InputProps) => {
           >
             {suggestedExtra}
           </span>
-        </div>
-      )}
+        </div> : null}
     </div>
   );
-};
+}

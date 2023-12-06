@@ -1,6 +1,6 @@
 import { getSupergroups } from "../../api/supergroups";
-import { CreateSupergroup } from "./../components/CreateSupergroup";
-import { SupergroupList } from "./../components/SupergroupList";
+import { CreateSupergroup } from "../components/CreateSupergroup";
+import { SupergroupList } from "../components/SupergroupList";
 
 export default async function Page({
   searchParams,
@@ -18,8 +18,8 @@ export default async function Page({
 
   return (
     <SupergroupList
-      supergroups={supergroups}
       showOwned={searchParams.filter === "owned"}
+      supergroups={supergroups}
     />
   );
 }

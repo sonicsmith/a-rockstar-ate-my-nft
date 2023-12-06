@@ -1,16 +1,16 @@
 "use client";
 
 import { Button, Container } from "ui";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAccount } from "wagmi";
 import { useSupergroupInfo } from "../../hooks/useSupergroupInfo";
 import { ArtistDisplay } from "../ArtistDisplay";
 import { PopularityDisplay } from "../PopularityDisplay";
 import { useSellSupergroup } from "../../hooks/useSellSupergroup";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { useAppStore } from "../../store/useAppStore";
-import { useAccount } from "wagmi";
 
-export const ViewSupergroup = ({ tokenId }: { tokenId: string }) => {
+export function ViewSupergroup({ tokenId }: { tokenId: string }) {
   const { owner, artists, numberOfFollowersStart, numberOfFollowersCurrent } =
     useSupergroupInfo(tokenId);
 
@@ -53,7 +53,7 @@ export const ViewSupergroup = ({ tokenId }: { tokenId: string }) => {
         </div>
         {owner === address && (
           <div className="w-fit m-auto">
-            <Button variant={isLoading ? "warning" : "success"} onClick={sell}>
+            <Button onClick={sell} variant={isLoading ? "warning" : "success"}>
               <div className="flex gap-2">
                 {isLoading ? (
                   <div className="m-auto animate-pulse">Selling...</div>
@@ -67,4 +67,4 @@ export const ViewSupergroup = ({ tokenId }: { tokenId: string }) => {
       </div>
     </Container>
   );
-};
+}

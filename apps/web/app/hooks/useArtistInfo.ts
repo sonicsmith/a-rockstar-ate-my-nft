@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useSpotifyToken } from "./useSpotifyToken";
 import { useEffect, useState } from "react";
-import { Artist } from "../types";
+import type { Artist } from "../types";
+import { useSpotifyToken } from "./useSpotifyToken";
 
 const getArtistFromId = ({
   artistId,
@@ -17,9 +17,9 @@ const getArtistFromId = ({
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => res.data);
-  } else {
+  } 
     return null;
-  }
+  
 };
 
 export const useArtistInfo = (artistId: string | undefined) => {
