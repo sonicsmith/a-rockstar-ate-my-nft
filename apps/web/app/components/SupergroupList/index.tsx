@@ -16,22 +16,26 @@ export const SupergroupList = ({
 
   const filteredSupergroups = supergroups.filter((supergroup) => {
     if (showOwned) {
-      return true;
+      return supergroup.ownerOf.toLowerCase() === address?.toLowerCase();
     }
-    return supergroup.ownerOf === address;
+    return true;
   });
+
+  const label = (showOwned ? "My " : "") + "Supergroups";
 
   return (
     <div>
-      <Container label={"Supergroups:"}>
+      <Container label={`${label}:`}>
         {filteredSupergroups.length === 0 && <p>No supergroups found.</p>}
-        {filteredSupergroups &&
-          filteredSupergroups.map((supergroup) => (
-            <SupergroupListItem
-              tokenId={supergroup.tokenId}
-              key={supergroup.tokenId}
-            />
-          ))}
+        <div className="flex flex-col">
+          {filteredSupergroups &&
+            filteredSupergroups.map((supergroup) => (
+              <SupergroupListItem
+                tokenId={supergroup.tokenId}
+                key={supergroup.tokenId}
+              />
+            ))}
+        </div>
       </Container>
     </div>
   );

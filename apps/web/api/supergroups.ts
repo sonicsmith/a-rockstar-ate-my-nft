@@ -4,14 +4,13 @@ import { initMoralis } from "./initMoralis";
 import { SUPERGROUPS_CONTRACT_ADDRESS } from "../app/constants";
 import { SupergroupsNftItem } from "../app/types";
 
-export const getSupergroups = cache(async (address?: string) => {
+export const getSupergroups = cache(async () => {
   try {
     await initMoralis();
 
-    const response = await Moralis.EvmApi.nft.getContractNFTs({
+    const response = await Moralis.EvmApi.nft.getNFTOwners({
       chain: process.env.NEXT_PUBLIC_CHAIN_CODE,
       format: "decimal",
-      mediaItems: false,
       address: SUPERGROUPS_CONTRACT_ADDRESS,
     });
 
@@ -25,12 +24,6 @@ export const getSupergroups = cache(async (address?: string) => {
         ownerOf: token.ownerOf?.lowercase || "",
       };
     }) as SupergroupsNftItem[];
-
-    if (address) {
-      return supergroups.filter((supergroup) => {
-        return supergroup.ownerOf === address.toLowerCase();
-      });
-    }
 
     return supergroups;
   } catch (error) {
