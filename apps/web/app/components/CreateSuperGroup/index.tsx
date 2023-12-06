@@ -48,7 +48,7 @@ export const CreateSupergroup = () => {
 
   return (
     <div>
-      <Container label={"Create Super Group"}>
+      <Container label={"Create Supergroup"}>
         {artists.length ? (
           <div className="mb-4">
             <ArtistDisplay
@@ -72,7 +72,7 @@ export const CreateSupergroup = () => {
                 {isLoading ? (
                   <div className="my-auto animate-pulse">Creating...</div>
                 ) : (
-                  <div className="my-auto">Create Super Group</div>
+                  <div className="my-auto">Create Supergroup</div>
                 )}
               </div>
             </Button>
