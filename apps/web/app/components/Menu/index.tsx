@@ -27,8 +27,11 @@ export function Menu() {
     <div className="">
       <div>Please choose an option:</div>
       <div className="py-8 flex flex-col">
-        <label onClick={() => { setChecked(1); }}>
+        <label>
           <input
+            onChange={() => {
+              setChecked(1);
+            }}
             checked={checked === 1}
             className="nes-radio"
             name="answer"
@@ -36,9 +39,11 @@ export function Menu() {
           />
           <span>Create supergroup</span>
         </label>
-
-        <label onClick={() => { setChecked(2); }}>
+        <label>
           <input
+            onChange={() => {
+              setChecked(2);
+            }}
             checked={checked === 2}
             className="nes-radio"
             name="answer"
@@ -46,9 +51,11 @@ export function Menu() {
           />
           <span>View my supergroups</span>
         </label>
-
-        <label onClick={() => { setChecked(3); }}>
+        <label>
           <input
+            onChange={() => {
+              setChecked(3);
+            }}
             checked={checked === 3}
             className="nes-radio"
             name="answer"
