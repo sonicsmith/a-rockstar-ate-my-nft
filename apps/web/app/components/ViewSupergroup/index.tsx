@@ -11,8 +11,13 @@ import { useSellSupergroup } from "../../hooks/useSellSupergroup";
 import { useAppStore } from "../../store/useAppStore";
 
 export function ViewSupergroup({ tokenId }: { tokenId: string }) {
-  const { owner, artists, numberOfFollowersStart, numberOfFollowersCurrent } =
-    useSupergroupInfo(tokenId);
+  const {
+    owner,
+    artists,
+    numberOfFollowersStart,
+    numberOfFollowersCurrent,
+    isErrorOwner,
+  } = useSupergroupInfo(tokenId);
 
   const { sellSupergroup, data, isLoading } = useSellSupergroup(tokenId);
 
@@ -49,7 +54,15 @@ export function ViewSupergroup({ tokenId }: { tokenId: string }) {
       <ArtistDisplay artists={artists} />
       <div className="">
         <div className="p-4 w-fit m-auto">
-          <PopularityDisplay popularity={popularity} />
+          {isErrorOwner ? (
+            <div className="text-center">
+              This supergroup has since
+              <br />
+              disbanded
+            </div>
+          ) : (
+            <PopularityDisplay popularity={popularity} />
+          )}
         </div>
         {owner === address && (
           <div className="w-fit m-auto">

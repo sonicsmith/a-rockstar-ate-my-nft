@@ -7,7 +7,6 @@ export function MainView({ children }: { children: React.ReactNode }) {
 
   if (isConnected) {
     return <div>{children}</div>;
-  } 
-    return <div>Please log in to continue</div>;
-  
+  }
+  return <div>Please connect wallet to continue</div>;
 }

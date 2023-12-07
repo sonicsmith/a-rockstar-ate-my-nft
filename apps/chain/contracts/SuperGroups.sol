@@ -23,7 +23,8 @@ contract Supergroups is ISupergroups, ERC721, Ownable {
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "https://rockstar/";
+        return
+            "https://a-rockstar-ate-my-nft-web-sonicsmith.vercel.app/api/tokenId/";
     }
 
     function safeMint(

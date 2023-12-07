@@ -47,6 +47,7 @@ export const useSupergroupInfo = (supergroupId: string) => {
   }
 
   return {
+    isErrorOwner,
     owner: owner as string,
     artists: [artist1, artist2],
     numberOfFollowersStart: numberOfFollowers,
